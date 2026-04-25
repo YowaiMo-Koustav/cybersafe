@@ -1,17 +1,12 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { Shield, Radar, History as HistoryIcon, Puzzle, LogOut } from "lucide-react";
-import { useAuth } from "../context/AuthContext";
-import { Button } from "./ui/button";
+import { NavLink } from "react-router-dom";
+import { Shield, Radar, Puzzle } from "lucide-react";
 
 const navItems = [
   { to: "/dashboard", label: "Scanner", icon: Radar, testid: "nav-scanner" },
-  { to: "/history", label: "History", icon: HistoryIcon, testid: "nav-history" },
   { to: "/extension", label: "Extension", icon: Puzzle, testid: "nav-extension" },
 ];
 
 export const Layout = ({ children }) => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex bg-slate-950 text-white">
@@ -43,20 +38,7 @@ export const Layout = ({ children }) => {
         </nav>
         <div className="p-4 border-t border-slate-800">
           <div className="text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1">Operator</div>
-          <div className="text-sm font-mono-custom text-white truncate" data-testid="current-user-name">{user?.name}</div>
-          <div className="text-xs text-slate-500 truncate mb-3">{user?.email}</div>
-          <Button
-            variant="outline"
-            size="sm"
-            className="w-full border-slate-700 bg-transparent hover:bg-slate-900 rounded-sm"
-            data-testid="logout-button"
-            onClick={() => {
-              logout();
-              navigate("/login");
-            }}
-          >
-            <LogOut className="h-3.5 w-3.5 mr-2" /> Sign out
-          </Button>
+          <div className="text-sm font-mono-custom text-white truncate">Guest</div>
         </div>
       </aside>
 
@@ -78,9 +60,6 @@ export const Layout = ({ children }) => {
               <n.icon className="h-4 w-4" />
             </NavLink>
           ))}
-          <button onClick={() => { logout(); navigate("/login"); }} className="p-2 text-slate-400" data-testid="logout-button-mobile">
-            <LogOut className="h-4 w-4" />
-          </button>
         </div>
       </div>
 

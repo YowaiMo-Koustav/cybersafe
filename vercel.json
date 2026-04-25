@@ -1,15 +1,32 @@
 {
-  "framework": "create-react-app",
-  "buildCommand": "cd frontend && yarn install && yarn build",
-  "outputDirectory": "frontend/build",
-  "installCommand": "cd frontend && yarn install",
-  "rewrites": [
-    { "source": "/api/detect", "destination": "/api/detect" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend/build"
+      }
+    },
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "frontend/build/$1"
+    }
   ],
   "env": {
-    "OPENROUTER_MODEL": "anthropic/claude-3.5-sonnet",
-    "JINA_READER_URL": "https://r.jina.ai",
-    "APP_NAME": "CyberShield"
+    "GEMINI_API_KEY": "@gemini_api_key",
+    "APIFY_API_KEY": "@apify_api_key",
+    "APP_NAME": "CyberShield",
+    "APP_PUBLIC_URL": "https://cyber-shield.vercel.app"
   }
 }

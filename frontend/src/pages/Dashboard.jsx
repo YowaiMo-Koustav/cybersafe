@@ -242,7 +242,7 @@ export default function Dashboard() {
                   </p>
                 </div>
 
-                {(result.toxic_flags.length > 0 || result.repeated_messages.length > 0 || (result.contact_numbers?.length ?? 0) > 0) && (
+                {(result.toxic_flags.length > 0 || (result.contact_numbers?.length ?? 0) > 0) && (
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-slate-900 border border-slate-800 rounded-sm p-6">
                       <div className="text-[10px] uppercase tracking-[0.2em] text-rose-400 mb-3">
@@ -259,22 +259,6 @@ export default function Dashboard() {
                             </Badge>
                           ))}
                         </div>
-                      ) : (
-                        <div className="text-sm text-slate-500">None detected.</div>
-                      )}
-                    </div>
-                    <div className="bg-slate-900 border border-slate-800 rounded-sm p-6">
-                      <div className="text-[10px] uppercase tracking-[0.2em] text-amber-400 mb-3">
-                        Suspicious snippets
-                      </div>
-                      {result.repeated_messages.length ? (
-                        <ul className="space-y-1.5 font-mono-custom text-sm text-slate-300" data-testid="repeated-messages">
-                          {result.repeated_messages.map((m, i) => (
-                            <li key={i} className="truncate border-l-2 border-amber-400/50 pl-3">
-                              {m}
-                            </li>
-                          ))}
-                        </ul>
                       ) : (
                         <div className="text-sm text-slate-500">None detected.</div>
                       )}

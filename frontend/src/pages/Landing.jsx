@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
 import { Shield, Radar, Brain, AlertTriangle } from "lucide-react";
 import { Button } from "../components/ui/button";
-import { useAuth } from "../context/AuthContext";
 
 export default function Landing() {
-  const { user } = useAuth();
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       <header className="border-b border-slate-800 backdrop-blur-xl bg-slate-950/80 sticky top-0 z-40">
@@ -14,24 +12,11 @@ export default function Landing() {
             <span className="font-display font-bold tracking-tight">CyberShield</span>
           </div>
           <div className="flex items-center gap-3">
-            {user ? (
-              <Link to="/dashboard">
-                <Button className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-sm font-bold" data-testid="go-dashboard-btn">
-                  Open dashboard
-                </Button>
-              </Link>
-            ) : (
-              <>
-                <Link to="/login" className="text-sm text-slate-400 hover:text-white" data-testid="landing-login-link">
-                  Sign in
-                </Link>
-                <Link to="/register">
-                  <Button className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-sm font-bold" data-testid="landing-register-btn">
-                    Get started
-                  </Button>
-                </Link>
-              </>
-            )}
+            <Link to="/dashboard">
+              <Button className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-sm font-bold" data-testid="go-dashboard-btn">
+                Open dashboard
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
@@ -52,7 +37,7 @@ export default function Landing() {
             bot patterns, toxic messages, and stalker behavior with a 0–100 risk rating.
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            <Link to={user ? "/dashboard" : "/register"}>
+            <Link to="/dashboard">
               <Button size="lg" className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-sm font-bold" data-testid="hero-cta-btn">
                 Scan a profile
               </Button>
