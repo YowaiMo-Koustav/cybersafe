@@ -1,9 +1,9 @@
 {
   "version": 2,
   "framework": "create-react-app",
-  "buildCommand": "cd frontend && npm install --force && npm run build",
+  "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/build",
-  "installCommand": "cd frontend && npm install --force",
+  "installCommand": "cd frontend && npm install",
   "experimentalServices": {
     "frontend": {
       "entrypoint": "frontend",
