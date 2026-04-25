@@ -20,8 +20,6 @@
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "env": {
-    "GEMINI_API_KEY": "@gemini_api_key",
-    "APIFY_API_KEY": "@apify_api_key",
     "APP_NAME": "CyberShield",
     "APP_PUBLIC_URL": "https://cyber-shield.vercel.app"
   }
