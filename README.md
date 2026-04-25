@@ -2,8 +2,6 @@
 
 A cybersecurity tool that analyzes Instagram profiles to detect fake accounts, cyberstalkers, and potential scammers using AI-powered analysis.
 
-![CyberShield](https://images.pexels.com/photos/14066344/pexels-photo-14066344.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750)
-
 ## Features
 
 - **AI Risk Analysis**: Uses Google Gemini AI to analyze profile data and assign risk scores
