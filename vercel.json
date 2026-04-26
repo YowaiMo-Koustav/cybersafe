@@ -5,9 +5,7 @@
   "installCommand": "cd frontend && npm ci --legacy-peer-deps",
   "env": {
     "APP_NAME": "CyberShield",
-    "APP_PUBLIC_URL": "https://cyber-shield.vercel.app",
-    "GEMINI_API_KEY": "@gemini_api_key",
-    "APIFY_API_KEY": "@apify_api_key"
+    "APP_PUBLIC_URL": "https://cyber-shield.vercel.app"
   },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
