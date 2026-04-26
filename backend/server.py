@@ -19,7 +19,7 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR.parent / ".env")
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
-GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash-lite")
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 APIFY_API_KEY = os.environ.get("APIFY_API_KEY", "")
 APIFY_INSTAGRAM_ACTOR = os.environ.get("APIFY_INSTAGRAM_ACTOR", "dSCLg0C3YEZ83HzYX")
 APP_PUBLIC_URL = os.environ.get("APP_PUBLIC_URL", "http://localhost")
