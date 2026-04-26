@@ -1,0 +1,10 @@
+{
+  "name": "cybershield-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "frontend:start": "cd frontend && npm start",
+    "frontend:build": "cd frontend && npm run build",
+    "backend:start": "cd backend && uvicorn server:app --reload"
+  }
+}

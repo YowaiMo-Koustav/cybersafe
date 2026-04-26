@@ -8,7 +8,7 @@
     "APP_PUBLIC_URL": "https://cyber-shield.vercel.app"
   },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/api/(.*)", "destination": "api/index.py" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "functions": {
