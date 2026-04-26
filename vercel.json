@@ -7,10 +7,13 @@
     },
     "backend": {
       "entrypoint": "backend",
-      "routePrefix": "/api",
+      "routePrefix": "/backend",
       "framework": "fastapi"
     }
   },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/backend/api/$1" }
+  ],
   "env": {
     "APP_NAME": "CyberShield",
     "APP_PUBLIC_URL": "https://cyber-shield.vercel.app"
