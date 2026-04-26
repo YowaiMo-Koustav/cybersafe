@@ -1,26 +1,21 @@
 {
   "version": 2,
-  "framework": "create-react-app",
-  "buildCommand": "cd frontend && npm install --force && npm run build",
+  "buildCommand": "cd frontend && npm ci --legacy-peer-deps && npm run build",
   "outputDirectory": "frontend/build",
-  "installCommand": "cd frontend && npm install --force",
-  "experimentalServices": {
-    "frontend": {
-      "entrypoint": "frontend",
-      "routePrefix": "/",
-      "framework": "create-react-app"
-    },
-    "backend": {
-      "entrypoint": "api/index.py",
-      "routePrefix": "/api"
-    }
+  "installCommand": "cd frontend && npm ci --legacy-peer-deps",
+  "env": {
+    "APP_NAME": "CyberShield",
+    "APP_PUBLIC_URL": "https://cyber-shield.vercel.app",
+    "GEMINI_API_KEY": "@gemini_api_key",
+    "APIFY_API_KEY": "@apify_api_key"
   },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "env": {
-    "APP_NAME": "CyberShield",
-    "APP_PUBLIC_URL": "https://cyber-shield.vercel.app"
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.11"
+    }
   }
 }
