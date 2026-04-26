@@ -138,7 +138,7 @@ ANALYSIS_SYSTEM = (
     '  "suspicious_snippets": ["<short excerpt>", ...],\n'
     '  "contact_numbers": ["<phone or WhatsApp number exactly as found>", ...]\n'
     "}\n"
-    "IMPORTANT: Keep summary under 200 characters. Keep red_flags between 0-5. "
+    "IMPORTANT: Keep summary under 300 characters analyzing the account. Keep red_flags between 0-5. "
     "Thresholds: <35=Safe, 35-64=Medium Risk, >=65=High Risk. "
     "For contact_numbers, extract from bio or post captions. "
     "Key risk signals: follower/following ratio imbalance, new accounts, suspicious bio patterns, "
@@ -185,7 +185,54 @@ def _clean_json_response(raw: str) -> dict:
     raw = raw.strip()
     if raw.startswith("```"):
         raw = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw, flags=re.MULTILINE).strip()
-    return json.loads(raw)
+
+    # Try to extract JSON object from surrounding text
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        pass
+
+    # Find the first { and last } to extract JSON object
+    start = raw.find("{")
+    end = raw.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        try:
+            return json.loads(raw[start:end + 1])
+        except json.JSONDecodeError:
+            pass
+
+    # Attempt to repair truncated/unterminated strings by finding last complete key-value pair
+    candidate = raw[start:end + 1] if start != -1 and end != -1 else raw
+
+    # Try truncating at last complete property before the break
+    last_brace = candidate.rfind("}")
+    if last_brace > 0:
+        truncated = candidate[:last_brace + 1]
+        try:
+            return json.loads(truncated)
+        except json.JSONDecodeError:
+            pass
+
+    # Aggressive repair: close any open strings and brackets
+    repaired = candidate
+    open_quotes = repaired.count('"') - repaired.count(r'\"')
+    if open_quotes % 2 == 1:
+        repaired = repaired[:repaired.rfind('"')] + '"'
+
+    # Close open brackets
+    braces = repaired.count("{") - repaired.count("}")
+    brackets = repaired.count("[") - repaired.count("]")
+    repaired += "}" * max(0, braces)
+    repaired += "]" * max(0, brackets)
+
+    # Remove trailing commas before closing braces/brackets
+    repaired = re.sub(r",(\s*[}\]])", r"\1", repaired)
+
+    try:
+        return json.loads(repaired)
+    except json.JSONDecodeError:
+        logger.warning(f"Could not parse Gemini response as JSON. Raw: {raw[:500]}")
+        raise
 
 async def _call_gemini(profile_url: str, platform: str, content: str) -> dict:
     if not gemini_client:
